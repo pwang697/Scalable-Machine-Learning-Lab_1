@@ -1,9 +1,13 @@
-#If you have windows, install twofish
-#twofish
-hopsworks
-joblib
-scikit-learn==1.1.1
-seaborn
-dataframe-image
-modal
-gradio==3.14
+name: id2223
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pip:
+      - dataframe-image==0.2.2
+      - gradio==3.14.0
+      - hopsworks==3.4.3
+      - joblib==1.3.2
+      - modal==0.55.4073
+      - scikit-learn==1.1.1
+      - seaborn==0.13.0
