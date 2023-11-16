@@ -3,11 +3,8 @@ name: Python Package using Conda
 on: [push, workflow_call]
 
 jobs:
-  build-linux:
-    runs-on: macos-latest
-    defaults:
-      run:
-        shell: bash -el {0}
+  set-up-environment:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: conda-incubator/setup-miniconda@v2
