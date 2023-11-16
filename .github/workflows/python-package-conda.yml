@@ -5,7 +5,9 @@ on: [push, workflow_call]
 jobs:
   build-linux:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash -el {0}
     steps:
     - uses: actions/checkout@v3
     - uses: conda-incubator/setup-miniconda@v2
@@ -14,3 +16,6 @@ jobs:
         environment-file: environment.yml
         python-version: 3.10.13
         auto-activate-base: false
+    - run: |
+        conda info
+        conda list
