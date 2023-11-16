@@ -2,12 +2,9 @@ name: Python Package using Conda
 
 on: [push, workflow_call]
 
-env:
-  CONDA_VERBOSITY: 3
-
 jobs:
   build-linux:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     defaults:
       run:
         shell: bash -el {0}
