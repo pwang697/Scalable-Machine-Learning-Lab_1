@@ -1,7 +1,6 @@
 name: Iris Feature Pipeline Daily
 
 on:
-    push:
     schedule:
         - cron: '0 3 * * *'
 
