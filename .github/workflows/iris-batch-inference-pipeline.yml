@@ -1,7 +1,6 @@
 name: Iris Batch Inference Pipeline
 
 on:
-    push: # TODO: remove this
     schedule:
         - cron: "0 3 * * *"
 
