@@ -29,5 +29,4 @@ jobs:
                 pip install -r Task_1/requirements.txt
             - name: Run batch inference pipeline
               run: |
-                python Task_1/iris-batch_inference-pipeline.py
-                
+                python Task_1/iris-batch-inference-pipeline.py
