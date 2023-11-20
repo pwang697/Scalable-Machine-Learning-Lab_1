@@ -1,6 +1,7 @@
 name: Iris Batch Inference Pipeline
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '30 9 * * *'
 
