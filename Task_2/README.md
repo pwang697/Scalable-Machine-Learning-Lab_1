@@ -1,4 +1,4 @@
-# Task 2: Serverless ML with Wine Quality Dataset
+# Task 2: Serverless ML System for the Wine Quality Dataset
 
 ## Installation
 
