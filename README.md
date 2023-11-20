@@ -12,21 +12,42 @@ We built a pipeline for the [Wine Quality Dataset](https://www.kaggle.com/datase
 
 ### Feature Selection
 
+- Trim the feature group: In [wine-eda-and-backfill-feature-group](./Task_2/wine-eda-and-backfill-feature-group.ipynb), we found that the features of 'free sulphur dioxide' and 'total sulfur dioxide' are highly correlated so that we removed 'total sulfur dioxide'.
+
+- Set primary key: In [wine-eda-and-backfill-feature-group](./Task_2/wine-eda-and-backfill-feature-group.ipynb), we set all features as primary keys except `type` and `quality` since we wanted to make a dataset used to predict both the quality and type of wine. Meanwhile, we assumed that two wines with all the same numerical characteristics should not belong to different types nor be labelled to different quality.
+
 ### Data Preprocessing
+
+- Drop missing data: In [wine-eda-and-backfill-feature-group](./Task_2/wine-eda-and-backfill-feature-group.ipynb), we found that only 0.57% white wine data points and 0.38% red wine data points include missing values, so the impact of removing these data could be ignored.
+
+- Transform categorical value via one-hot encoding: `type` was transformed via `OneHotEncoder(drop='first',sparse=False)`, the `type` was replaced by `type_white` since there are only two wine types of `red` or `white`.
+
+- Classify the quality to three classes: The dataset is imbalanced, as the majority of the samples are of quality `5` or `6`. We implemented [wine-training-pipeline](./Task_2/wine-training-pipeline.ipynb) to predict the quality but the performance is not reasonable. So we classified the quality to three classes: `poor` includes all wines whose quality is less than 5, `fair` includes all wines whose quality is 5 or 6, and `excellent` includes all wines whose quality is greater than 6.
 
 ### Model Optimisation
 
+In [wine-class-training-pipeline](./Task_2/wine-class-training-pipeline.ipynb), the K-nearest neighbors algorithm is used for the quality classification. To optimise the model, the hyperparameters of the algorithm are tuned using `RandomizedSearchCV` grid search algorithm.
+
 ### Synthetic Data Generation
+
+In [wine-feature-pipeline-daily](./Task_2/wine-feature-pipeline-daily.py), we generate the synthetic data by the following steps:
+
+1. Randomly select a wine type and quality. It should be noted that red wine can have a quality of 3 to 8, while white wine can have a quality of 3 to 9.
+2. Filter the dataset to include only wines of the selected type and quality.
+3. Sample two data points(a.k.a rows) from the filtered data.
+4. Calculate the mean of the sampled data pair.
+5. Return the mean as the synthetic data.
 
 ## User applications
 
 Hugging Face is used for user-facing applications. The following applications are available for both datasets (Iris and Wine):
+
 - **Interactive UI:** A simple UI for querying the model with custom input.
 
-- **Dashboard UI:** A dashboard for monitoring the model performance and the synthetic data generation. In the case of the Wine dataset, the dashboard displays the most recent wine added and the predicted quality for it, along with the recent history of the predictions, and a confusion matrix for the model's predictions. 
-
+- **Dashboard UI:** A dashboard for monitoring the model performance and the synthetic data generation. In the case of the Wine dataset, the dashboard displays the most recent wine added and the predicted quality for it, along with the recent history of the predictions, and a confusion matrix for the model's predictions.
 
 #### Application URLs
+
 - https://huggingface.co/spaces/esnagy/Iris
 - https://huggingface.co/spaces/esnagy/iris-dashboard
 - https://huggingface.co/spaces/esnagy/wine-quality-prediction
@@ -35,16 +56,17 @@ Hugging Face is used for user-facing applications. The following applications ar
 ## Serverless ML pipelines
 
 ![Iris as a serverless ML system](./Iris%20as%20a%20serverless%20ML%20system.png)
-*Pipeline configuration for the Iris dataset. The same setup is used for the Wine dataset.*
+_Pipeline configuration for the Iris dataset. The same setup is used for the Wine dataset._
 
 We use GitHub Actions to develop the serverless ML pipelines. For both datasets (Iris and Wine) we deployed the following pipelines:
+
 - Feature pipeline:
-    1. Generates new data samples. Uses the provided data generator function for the Iris dataset and the method described in the [Synthetic Data Generation](#synthetic-data-generation) section for the Wine dataset.
-    2. Stores them as features in the HopsWorks feature store.
+  1. Generates new data samples. Uses the provided data generator function for the Iris dataset and the method described in the [Synthetic Data Generation](#synthetic-data-generation) section for the Wine dataset.
+  2. Stores them as features in the HopsWorks feature store.
 - Batch inference pipeline:
-    1. Reads the features from the feature store.
-    2. Runs a batch inference job on the features.
-    3. Stores the predictions in the feature store.
-    4. Creates and stores a confusion matrix and the recent history of the predictions for later monitoring and analysis.
+  1. Reads the features from the feature store.
+  2. Runs a batch inference job on the features.
+  3. Stores the predictions in the feature store.
+  4. Creates and stores a confusion matrix and the recent history of the predictions for later monitoring and analysis.
 
 They are scheduled to run daily. The training can be triggered manually.
