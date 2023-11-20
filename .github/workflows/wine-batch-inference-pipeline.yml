@@ -9,7 +9,7 @@ env:
     HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
 
 jobs:
-    wine-feature-pipeline-daily:
+    wine-batch-inference-pipeline:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -29,4 +29,5 @@ jobs:
                 pip install -r Task_2/requirements.txt
             - name: Run pipeline
               run: |
-                python Task_2/wine-feature-pipeline-daily.py
+                python Task_2/wine-class-batch-inference-pipeline.py
+                
