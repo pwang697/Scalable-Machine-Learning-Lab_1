@@ -69,7 +69,7 @@ def g():
     import requests
     import numpy as np
 
-    project = hopsworks.login(api_key_value='meVTnNcyrLQJefeF.OcatdkM3qucgCg0WvGCRD81QRGyrgxZl1RgPtiKqNcA9gSwsNn1TIEWnTeD9c31n')
+    project = hopsworks.login()
     fs = project.get_feature_store()
     mr = project.get_model_registry()
     model = mr.get_model("wine_class_model", version=1)
