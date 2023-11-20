@@ -2,7 +2,7 @@ name: Iris Feature Pipeline Daily
 
 on:
   schedule:
-    - cron: '30 9 * * *'
+    - cron: '0 10 * * *' # Run every day at 10am UTC
 
 env:
     HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
