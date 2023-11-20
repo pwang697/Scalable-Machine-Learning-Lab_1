@@ -116,7 +116,7 @@ def g():
 
     df_recent = history_df.tail(4)
     dfi.export(df_recent, './df_recent.png', table_conversion = 'matplotlib')
-    dataset_api.upload("./df_recent.png", "Resources/images", overwrite=True)
+    dataset_api.upload("./df_recent.png", "Resources/images/wine", overwrite=True)
 
     predictions = history_df[['prediction']]
     labels = history_df[['label']]
@@ -137,7 +137,7 @@ def g():
         fig = cm.get_figure()
         fig.savefig("./confusion_matrix.png")
         dataset_api = project.get_dataset_api()
-        dataset_api.upload("./confusion_matrix.png", "Resources/images", overwrite=True)
+        dataset_api.upload("./confusion_matrix.png", "Resources/images/wine", overwrite=True)
     else:
         print("You need 3 different wine class predictions to create the confusion matrix.")
         print("Run the batch inference pipeline more times until you get 3 different wine class predictions")
