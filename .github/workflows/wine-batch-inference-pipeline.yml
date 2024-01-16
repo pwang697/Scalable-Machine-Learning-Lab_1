@@ -2,8 +2,8 @@ name: Wine Batch Inference Pipeline
 
 on:
   workflow_dispatch:
-  schedule:
-      - cron: "0 15 * * *" # 3pm UTC
+  # schedule:
+  #     - cron: "0 15 * * *" # 3pm UTC
 
 env:
     HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}

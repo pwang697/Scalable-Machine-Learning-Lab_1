@@ -2,8 +2,8 @@ name: Wine Feature Pipeline Daily
 
 on:
   workflow_dispatch:
-  schedule:
-      - cron: "0 14 * * *" # 2pm UTC
+  # schedule:
+  #     - cron: "0 14 * * *" # 2pm UTC
 
 env:
     HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
